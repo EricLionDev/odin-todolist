@@ -1,0 +1,22 @@
+{
+  "name": "catears",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^6.7.3",
+    "file-loader": "^6.2.0",
+    "style-loader": "^3.3.2",
+    "svg-inline-loader": "^0.8.2",
+    "svg-url-loader": "^8.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.85.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
