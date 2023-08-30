@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500&family=Merriweather:wght@300;400;700&display=swap");
+
+:root {
+  --text: hsl(120, 100%, 100%);
+  --background: hsl(0, 0%, 8%);
+  --primary: hsl(219, 57%, 50%);
+  --secondary: hsl(0, 0%, 19%);
+  --accent: hsl(138, 87%, 87%);
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+}
+
+body {
+  background-color: var(--background);
+}
+
+/* mobile 
+    view */
+
+.mobile-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0rem;
+}
+.mobile-nav-button {
+  padding: 0rem 1rem;
+  justify-self: flex-start;
+  background-color: transparent;
+  border: none;
+  fill: var(--text);
+}
+
+.site-title {
+  color: var(--text);
+  text-align: center;
+  font-family: "Karla", sans-serif;
+  font-weight: 500;
+}
