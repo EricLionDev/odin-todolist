@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500&family=Merriweather:wght@300;400;700&display=swap");
 
 :root {
-  --text: hsl(120, 100%, 100%);
-  --background: hsl(0, 0%, 8%);
-  --primary: hsl(219, 57%, 50%);
-  --secondary: hsl(0, 0%, 19%);
-  --accent: hsl(138, 87%, 87%);
+  --text: #ffffff;
+  --background: #141414;
+  --primary: #376ac8;
+  --secondary: #303030;
+  --accent: #c1fbd2;
 }
 
 *,
@@ -43,5 +43,6 @@ body {
   color: var(--text);
   text-align: center;
   font-family: "Karla", sans-serif;
+  font-size: 1rem;
   font-weight: 500;
 }
