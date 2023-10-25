@@ -21,28 +21,34 @@ body {
   background-color: var(--background);
 }
 
-/* mobile 
-    view */
+/* site container */
 
-.mobile-nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
-  justify-content: space-between;
-  margin: 1rem 0rem;
-}
-.mobile-nav-button {
-  padding: 0rem 1rem;
-  justify-self: flex-start;
-  background-color: transparent;
-  border: none;
-  fill: var(--text);
+#content-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background-color: var(--background);
 }
 
-.site-title {
+#nav-menu,
+#task-menu {
+  flex: 0.5;
+}
+
+#main-content {
+  flex: 2;
+  border-left: 5px solid var(--secondary);
+  border-right: 5px solid var(--secondary);
+}
+
+/* vvv Menu Stuff vvv */
+
+#nav-menu {
+  padding: 1rem 1.5rem;
+}
+
+.menu-title {
   color: var(--text);
-  text-align: center;
-  font-family: "Karla", sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
 }
+
+/* vvv Main Content Stuff vvv */
