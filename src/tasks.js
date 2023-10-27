@@ -6,8 +6,7 @@ export default function create_task(
   description,
   list,
   due_date,
-  due_time,
-  tags
+  due_time
 ) {
   this.id = tasknums;
   this.name = name;
@@ -15,7 +14,6 @@ export default function create_task(
   this.list = list;
   this.due_date = due_date;
   this.due_time = due_time;
-  this.tags = tags;
   tasknums++;
 
   list.push(this);

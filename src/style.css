@@ -43,12 +43,19 @@ body {
 
 /* vvv Menu Stuff vvv */
 
-#nav-menu {
-  padding: 1rem 1.5rem;
-}
-
-.menu-title {
+.menu-title,
+.task-title {
   color: var(--text);
+  padding: 1.5rem 1.5rem;
 }
 
 /* vvv Main Content Stuff vvv */
+
+.current-main-title {
+  color: var(--text);
+  padding: 1rem 0rem;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+/* vvv Task Content Stuff vvv */
