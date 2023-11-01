@@ -54,13 +54,13 @@ body {
 .menu-section-title {
   color: var(--text);
   font-size: 1.25rem;
-  padding: 1rem 1.25rem;
+  padding: 1rem 1.5rem;
   font-family: "Karla";
 }
 .menu-list li {
   font-size: 1rem;
   color: var(--text);
-  padding: 1rem 1.75rem;
+  padding: 1rem 2.5rem;
   font-family: "Merriweather";
 }
 
@@ -70,13 +70,19 @@ body {
 
 .lists-list li:nth-child(1):hover {
   background-color: var(--primary);
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 .lists-list li:nth-child(2):hover {
   background-color: hsl(0, 54%, 52%);
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .lists-list li:nth-child(3):hover {
-  background-color: hsl(53, 54%, 52%);
+  background-color: hsl(53, 88%, 45%);
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 /* vvv Main Content Stuff vvv */
