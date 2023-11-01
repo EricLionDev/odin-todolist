@@ -47,15 +47,50 @@ body {
 .task-title {
   color: var(--text);
   padding: 1rem 1rem;
+  font-size: 2rem;
+  font-family: "Karla";
+}
+
+.menu-section-title {
+  color: var(--text);
+  font-size: 1.25rem;
+  padding: 1rem 1.25rem;
+  font-family: "Karla";
+}
+.menu-list li {
+  font-size: 1rem;
+  color: var(--text);
+  padding: 1rem 1.75rem;
+  font-family: "Merriweather";
+}
+
+.tasks-list li:hover {
+  background-color: var(--secondary);
+}
+
+.lists-list li:nth-child(1):hover {
+  background-color: var(--primary);
+}
+.lists-list li:nth-child(2):hover {
+  background-color: hsl(0, 54%, 52%);
+}
+
+.lists-list li:nth-child(3):hover {
+  background-color: hsl(53, 54%, 52%);
 }
 
 /* vvv Main Content Stuff vvv */
 
 .current-main-title {
   color: var(--text);
-  padding: 1rem 0rem;
-  font-size: 2.5rem;
-  text-align: center;
+  padding: 1rem 0 0 1rem;
+  font-size: 3rem;
+  text-align: left;
+  font-family: "Karla";
 }
 
 /* vvv Task Content Stuff vvv */
+
+.task-title {
+  font-family: "Karla";
+}
