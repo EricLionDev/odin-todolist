@@ -30,9 +30,12 @@ body {
   background-color: var(--background);
 }
 
-#nav-menu,
-#task-menu {
+#nav-menu {
   flex: 0.5;
+}
+
+#task-menu {
+  flex: 1;
 }
 
 #main-content {
@@ -68,21 +71,22 @@ body {
   background-color: var(--secondary);
 }
 
-.lists-list li:nth-child(1):hover {
-  background-color: var(--primary);
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
-}
-.lists-list li:nth-child(2):hover {
-  background-color: hsl(0, 54%, 52%);
+.lists-list li:nth-child(1):hover,
+.lists-list li:nth-child(2):hover,
+.lists-list li:nth-child(3):hover {
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     1px 1px 0 #000;
 }
 
+.lists-list li:nth-child(1):hover {
+  background-color: var(--primary);
+}
+.lists-list li:nth-child(2):hover {
+  background-color: hsl(0, 54%, 52%);
+}
+
 .lists-list li:nth-child(3):hover {
   background-color: hsl(53, 88%, 45%);
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
 }
 
 /* vvv Main Content Stuff vvv */
