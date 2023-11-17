@@ -103,4 +103,30 @@ body {
 
 .task-title {
   font-family: "Karla";
+  padding: 1rem;
+}
+.new-task-form {
+  margin: 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.task-input {
+  background-color: var(--secondary);
+  color: var(--text);
+  width: 90%;
+  margin-bottom: 1rem;
+}
+
+.task-input::placeholder {
+  color: hsl(0, 0%, 80%);
+  font-size: 0.8rem;
+  font-family: "Merriweather";
+}
+
+/* task description input text area */
+.task-description-input {
+  height: 10rem;
+  resize: vertical;
 }
