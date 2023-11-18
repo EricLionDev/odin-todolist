@@ -47,7 +47,7 @@ body {
 /* vvv Menu Stuff vvv */
 
 .menu-title,
-.task-title {
+.task-area-title {
   color: var(--text);
   padding: 1rem 1rem;
   font-size: 2rem;
@@ -101,7 +101,7 @@ body {
 
 /* vvv Task Content Stuff vvv */
 
-.task-title {
+.task-area-title {
   font-family: "Karla";
   padding: 1rem;
 }
@@ -115,8 +115,8 @@ body {
 .task-input {
   background-color: var(--secondary);
   color: var(--text);
-  width: 90%;
-  margin-bottom: 1rem;
+  width: 100%;
+  margin-bottom: 0.25rem;
 }
 
 .task-input::placeholder {
@@ -125,8 +125,32 @@ body {
   font-family: "Merriweather";
 }
 
+.new-task-label {
+  color: var(--text);
+  font-family: "Karla";
+}
+
+.new-task-wrapper {
+  width: 90%;
+}
+#new-task-date {
+  width: 100%;
+}
+
 /* task description input text area */
 .task-description-input {
   height: 10rem;
   resize: vertical;
+  border-width: 2px;
+  margin-bottom: 0;
+}
+
+/* submit button */
+
+.task-submit-btn {
+  background-color: var(--secondary);
+  color: var(--text);
+  width: 20%;
+  padding: 0.25rem;
+  margin-top: 0.5rem;
 }
