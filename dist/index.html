@@ -36,6 +36,7 @@
       <aside id="task-menu">
         <h2 class="task-area-title">New Task:</h2>
         <form action="#" class="new-task-form">
+          <!-- task title -->
           <div class="new-task-wrapper">
             <label for="new-task-title" class="new-task-label"
               >Task Title:</label
@@ -75,15 +76,21 @@
           <!-- task list item -->
           <div class="new-task-wrapper">
             <label for="new-task-list" class="new-task-label">List:</label>
-            <select class="task-input" name="" id="new-task-date">
+            <select class="task-input" name="" id="new-task-list">
               <option value="new-list">+ New List</option>
             </select>
           </div>
           <!-- submit button -->
-          <button type="button" class="task-submit-btn">Submit</button>
+          <button
+            type="button"
+            class="task-submit-btn"
+            onclick="handleNewTask()"
+          >
+            Submit
+          </button>
         </form>
       </aside>
     </div>
+    <script src="./main.js"></script>
   </body>
-  <script src="./main.js"></script>
 </html>
