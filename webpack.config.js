@@ -28,9 +28,5 @@ module.exports = {
         type: "asset/resource",
       },
     ],
-    devServer: {
-      contentBase: "./dist",
-      hot: true,
-    },
   },
 };
