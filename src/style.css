@@ -67,11 +67,12 @@ body {
   font-family: "Merriweather";
 }
 
-.tasks-list li:hover {
+.tasks-list li:hover,
+.lists-list li:hover {
   background-color: var(--secondary);
 }
 
-.lists-list li:nth-child(1):hover,
+/* .lists-list li:nth-child(1):hover,
 .lists-list li:nth-child(2):hover,
 .lists-list li:nth-child(3):hover {
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
@@ -87,7 +88,7 @@ body {
 
 .lists-list li:nth-child(3):hover {
   background-color: hsl(53, 88%, 45%);
-}
+} */
 
 /* vvv Main Content Stuff vvv */
 

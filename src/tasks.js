@@ -1,5 +1,7 @@
 import list from "./tasklist";
+var newTaskList = document.getElementById("new-task-list");
 var tasknums = 0;
+// class for handling tasks
 
 export default class create_task {
   constructor() {
@@ -18,18 +20,31 @@ export default class create_task {
     localStorage.setItem("tasklist", JSON.stringify(list));
     console.log(this.name, this.description);
 
-    this.task_form_reset();
+    task_form_reset();
   }
+}
 
-  task_form_reset() {
-    var newTaskTitle = document.getElementById("new-task-title");
-    var newTaskDescription = document.getElementById("new-task-description");
-    var newTaskDate = document.getElementById("new-task-date");
-    var newTaskList = document.getElementById("new-task-list");
+// ui control, resets form, sets task list back to new list
+function task_form_reset() {
+  var newTaskTitle = document.getElementById("new-task-title");
+  var newTaskDescription = document.getElementById("new-task-description");
+  var newTaskDate = document.getElementById("new-task-date");
+  var newTaskList = document.getElementById("new-task-list");
 
-    newTaskTitle.value = "";
-    newTaskDescription.value = "";
-    newTaskDate.value = "";
-    newTaskList.value = "";
+  newTaskTitle.value = "";
+  newTaskDescription.value = "";
+  newTaskDate.value = "";
+  newTaskList.value = "new-list";
+  handleNewList();
+}
+// ui, shows/hides the new list input box for if they want to make a new list
+export function handleNewList() {
+  var newListWrapper = document.getElementById("new-list-input-wrapper");
+  if (newTaskList.value == "new-list") {
+    newListWrapper.style.display = "block";
+    console.log(newListWrapper.style.display);
+  } else {
+    newListWrapper.style.display = "none";
+    console.log(newListWrapper.style.display);
   }
 }

@@ -78,7 +78,23 @@
             <label for="new-task-list" class="new-task-label">List:</label>
             <select class="task-input" name="" id="new-task-list">
               <option value="new-list">+ New List</option>
+              <option value="Important">Important</option>
             </select>
+          </div>
+
+          <!-- new list item input -->
+          <div id="new-list-input-wrapper" class="new-task-wrapper">
+            <label for="new-task-list-input" class="new-task-label"
+              >New List:</label
+            >
+            <input
+              type="text"
+              id="new-task-list-input"
+              class="task-input"
+              name="new_list_title"
+              placeholder="Title for your new list"
+              required
+            />
           </div>
           <!-- submit button -->
           <button type="button" class="task-submit-btn" id="new-task-btn">
