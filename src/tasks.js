@@ -1,8 +1,9 @@
-import list from "./tasklist";
+import { parseISO } from "date-fns";
+import { task_list, list_list } from "./tasklist";
 var newTaskList = document.getElementById("new-task-list");
 var tasknums = 0;
-// class for handling tasks
 
+// class for handling tasks
 export default class create_task {
   constructor() {
     var newTaskTitle = document.getElementById("new-task-title");
@@ -13,10 +14,11 @@ export default class create_task {
     this.name = newTaskTitle.value;
     this.description = newTaskDescription.value;
     this.list = newTaskList.value;
-    this.due_date = newTaskDate.value;
+    this.due_date = parseISO(newTaskDate.value);
     tasknums++;
 
-    list.push(this);
+    task_list.push(this);
+    list_list.push(this.list);
     localStorage.setItem("tasklist", JSON.stringify(list));
     console.log(this.name, this.description);
 
@@ -37,6 +39,7 @@ function task_form_reset() {
   newTaskList.value = "new-list";
   handleNewList();
 }
+
 // ui, shows/hides the new list input box for if they want to make a new list
 export function handleNewList() {
   var newListWrapper = document.getElementById("new-list-input-wrapper");
