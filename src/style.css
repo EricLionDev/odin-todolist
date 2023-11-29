@@ -106,7 +106,7 @@ body {
   font-family: "Karla";
   padding: 1rem;
 }
-.new-task-form {
+#new-task-form {
   margin: 1rem 1rem;
   display: flex;
   flex-direction: column;

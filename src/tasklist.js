@@ -1,3 +1,1 @@
-export const task_list = [];
-
-export const list_list = [];
+export const task_list = {};

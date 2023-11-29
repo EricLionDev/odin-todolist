@@ -5,8 +5,11 @@ import { handleNewList } from "./tasks";
 
 //  creating new task
 export default function handleNewTask() {
-  let task = new create_task();
-  return task;
+  //check form validity
+  if (document.getElementById("new-task-form").checkValidity()) {
+    let task = new create_task();
+    return task;
+  }
 }
 // new task submit btn event listener
 document.addEventListener("DOMContentLoaded", () => {
@@ -16,8 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", handleNewTask);
   }
   if (newTaskList) {
-    console.log("yes" + newTaskList.value);
-
     newTaskList.addEventListener("change", () => {
       console.log("running func");
       handleNewList();
