@@ -64,4 +64,11 @@ export function handleNewList() {
     document.getElementById("new-task-list-input").required = false;
     console.log(newListWrapper.style.display);
   }
+  updateNavList();
+}
+
+// ui to update nav side menu with new lists
+export function updateNavList() {
+  console.log("lists: " + task_list.keys());
+  task_list.forEach((element) => {});
 }
