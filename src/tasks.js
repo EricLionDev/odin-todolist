@@ -44,11 +44,12 @@ function task_form_reset() {
   var newTaskTitle = document.getElementById("new-task-title");
   var newTaskDescription = document.getElementById("new-task-description");
   var newTaskDate = document.getElementById("new-task-date");
-  var newTaskList = document.getElementById("new-task-list");
+  var newTaskList = document.getElementById("new-task-list-input");
 
   newTaskTitle.value = "";
   newTaskDescription.value = "";
   newTaskDate.value = "";
+  newTaskList.value = "";
   handleNewList();
 }
 
@@ -69,6 +70,31 @@ export function handleNewList() {
 
 // ui to update nav side menu with new lists
 export function updateNavList() {
-  console.log("lists: " + task_list.keys());
-  task_list.forEach((element) => {});
+  let listContainer = document.getElementById("menu-lists-list");
+  let listOptionsContainer = document.getElementById("new-task-list");
+  let listTitles = Object.keys(task_list);
+
+  let existingListItems = listContainer.querySelectorAll("li");
+  let itemExists = false;
+
+  listTitles.forEach((listTitle) => {
+    existingListItems.forEach((element) => {
+      if (element.textContent == listTitle) {
+        itemExists = true;
+      }
+    });
+    if (!itemExists) {
+      // add it to nav list
+      let newNavItem = document.createElement("li");
+      newNavItem.innerText = listTitle;
+      newNavItem.value = listTitle;
+      listContainer.appendChild(newNavItem);
+
+      // add it to option list
+      let newOptionItem = document.createElement("option");
+      newOptionItem.value = listTitle;
+      newOptionItem.innerText = listTitle;
+      listOptionsContainer.appendChild(newOptionItem);
+    }
+  });
 }
