@@ -4,10 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <title>Monty's To-Do-List</title>
   </head>
   <body>
     <div id="content-container">
+      <!-- NAV MENU AREA -->
       <nav id="nav-menu">
         <h2 class="menu-title">Menu</h2>
 
@@ -28,10 +33,28 @@
         </div>
       </nav>
 
+      <!-- MAIN CONTENT AREA -->
       <section id="main-content">
         <h1 class="current-main-title">Today</h1>
+        <div class="" id="main-content-area">
+          <ul id="main-content-list">
+            <li class="main-content-list-item">
+              <div class="main-list-left-container">
+                <p class="main-list-item-title">Pick up groceries from weis</p>
+                <div class="main-list-modifiers-container"></div>
+              </div>
+              <!-- arrow container -->
+              <div class="list-arrow-container">
+                <span class="material-symbols-outlined">
+                  arrow_forward_ios
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
       </section>
 
+      <!-- NEW TASK AREA -->
       <aside id="task-menu">
         <h2 class="task-area-title">New Task:</h2>
         <form action="#" id="new-task-form">
@@ -93,6 +116,7 @@
               class="task-input"
               name="new_list_title"
               placeholder="Title for your new list"
+              maxlength="26"
               required
             />
           </div>

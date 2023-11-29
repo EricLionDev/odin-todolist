@@ -32,6 +32,7 @@ body {
 
 #nav-menu {
   flex: 0.5;
+  user-select: none;
 }
 
 #task-menu {
@@ -60,6 +61,9 @@ body {
   padding: 1rem 1.5rem;
   font-family: "Karla";
 }
+.tasks-list {
+  list-style-type: none;
+}
 .menu-list li {
   font-size: 1rem;
   color: var(--text);
@@ -72,39 +76,12 @@ body {
   background-color: var(--secondary);
 }
 
-/* .lists-list li:nth-child(1):hover,
-.lists-list li:nth-child(2):hover,
-.lists-list li:nth-child(3):hover {
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
-}
-
-.lists-list li:nth-child(1):hover {
-  background-color: var(--primary);
-}
-.lists-list li:nth-child(2):hover {
-  background-color: hsl(0, 54%, 52%);
-}
-
-.lists-list li:nth-child(3):hover {
-  background-color: hsl(53, 88%, 45%);
-} */
-
-/* vvv Main Content Stuff vvv */
-
-.current-main-title {
-  color: var(--text);
-  padding: 1rem 0 0 1rem;
-  font-size: 3rem;
-  text-align: left;
-  font-family: "Karla";
-}
-
 /* vvv Task Content Stuff vvv */
 
 .task-area-title {
   font-family: "Karla";
   padding: 1rem;
+  user-select: none;
 }
 #new-task-form {
   margin: 1rem 1rem;
@@ -154,4 +131,59 @@ body {
   width: 20%;
   padding: 0.25rem;
   margin-top: 0.5rem;
+}
+
+/* MAIN TASK AREA */
+
+.current-main-title {
+  color: var(--text);
+  padding: 1rem 0 0 1rem;
+  font-size: 3rem;
+  text-align: left;
+  font-family: "Karla";
+  margin-bottom: 1rem;
+  user-select: none;
+}
+
+.main-content-list-item {
+  display: flex;
+  width: 100%;
+  height: 5rem;
+  /* padding: 2rem 1rem; */
+  background-color: var(--secondary);
+}
+.main-content-list-item:nth-child(even) {
+  background-color: var(--background);
+}
+.main-list-left-container {
+  display: flex;
+  flex-direction: column;
+  width: 98%;
+}
+.main-list-item-title {
+  margin: 0.5rem;
+  font-size: 1.2rem;
+  color: var(--text);
+  font-family: "Karla";
+}
+
+/* item arrow svg styling */
+
+.material-symbols-outlined {
+  box-sizing: border-box;
+  color: var(--text);
+  font-size: 1rem;
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  padding: 0.25rem;
+  user-select: none;
+}
+
+.list-arrow-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  border: 2px solid transparent;
+}
+.list-arrow-container:hover {
+  border: 2px var(--primary) solid;
 }
