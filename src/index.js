@@ -1,7 +1,7 @@
 import * as dateFns from "date-fns";
 import "./style.css";
 import create_task from "./tasks";
-import { handleNewList } from "./tasks";
+import { handleNewList, generateMainContentList } from "./tasks";
 
 //  creating new task
 export default function handleNewTask() {
@@ -24,4 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
       handleNewList();
     });
   }
+  generateMainContentList();
+  handleNewList();
 });
