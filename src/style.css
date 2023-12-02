@@ -151,6 +151,7 @@ body {
   height: 5rem;
   /* padding: 2rem 1rem; */
   background-color: var(--secondary);
+  border: 3px solid transparent;
 }
 .main-content-list-item:nth-child(even) {
   background-color: var(--background);

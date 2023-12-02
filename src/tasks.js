@@ -50,7 +50,6 @@ function task_form_reset() {
   newTaskDate.value = "";
   newTaskList.value = "";
   handleNewList();
-  generateMainContentList();
 }
 
 // ui control, shows/hides the new list input box for if they want to make a new list
@@ -68,6 +67,7 @@ export function handleNewList() {
 
 // ui to update nav side menu with new lists
 export function updateNavList() {
+  console.log("called updateNavList() ");
   let listContainer = document.getElementById("menu-lists-list");
   let listOptionsContainer = document.getElementById("new-task-list");
   const storedList = JSON.parse(localStorage.getItem("tasklist"));
@@ -97,18 +97,22 @@ export function updateNavList() {
       listOptionsContainer.appendChild(newOptionItem);
     }
   });
+  generateMainContentList();
 }
 
 // GENERATE MAIN AREA LIST
 
 export function generateMainContentList() {
+  console.log("called generateMainContentList() ");
   const storedList = localStorage.getItem("tasklist");
   const listContainer = document.getElementById("main-content-list");
   let taskList;
+  listContainer.innerHTML = "";
   if (storedList) {
     taskList = JSON.parse(storedList);
   } else {
     console.log("There are no list items.");
+    listContainer.innerHTML = "";
   }
 
   // generate list html

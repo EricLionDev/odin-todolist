@@ -1,4 +1,6 @@
 import * as dateFns from "date-fns";
+import { task_list } from "./tasklist";
+import { updateNavList, generateMainContentList } from "./tasks";
 export function setupModalListeners() {
   const parentElement = document.getElementById("main-content-list");
   parentElement.addEventListener("click", (event) => {
@@ -70,10 +72,26 @@ function handleTaskModal(info) {
     </div></div>
   </div>`;
 
+  //   close btn functionality
   const modalCloseBtn = document.getElementById("modal-close");
   modalCloseBtn.addEventListener("click", () => {
     modalContainer.close();
   });
+  // delete btn functionality
+  const modalDeleteBtn = document.querySelector('[data-id="delete"]');
+  modalDeleteBtn.addEventListener("click", () => {
+    const taskList = JSON.parse(localStorage.getItem("tasklist"));
+    const matchingArray = taskList[clickedTask.list];
+    let index = matchingArray.findIndex((task) => task.id == clickedTask.id);
+    matchingArray.splice(index, 1);
+    localStorage.setItem("tasklist", JSON.stringify(taskList));
+
+    updateNavList();
+    generateMainContentList();
+    modalContainer.close();
+  });
+
+  //   show modal
   modalContainer.showModal();
 }
 
