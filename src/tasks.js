@@ -137,7 +137,7 @@ export function generateMainContentList() {
         </div>
       </div>
       <!-- arrow container -->
-      <div class="list-arrow-container">
+      <div class="list-arrow-container" data-info="${task.id}">
         <span class="material-symbols-outlined">
           arrow_forward_ios
         </span>

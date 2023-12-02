@@ -222,3 +222,47 @@ body {
 .modifier-list-list-container .material-symbols-outlined {
   font-size: 1.75rem;
 }
+
+/* MODAL STYLING */
+
+#task-modal-container {
+  border: none;
+}
+
+#task-modal-container::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+#modal-content {
+  height: 60%;
+  width: auto;
+  background-color: var(--background);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0.2rem solid var(--secondary);
+  padding: 0 2rem;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+}
+
+#modal-task-title {
+  font-family: "Merriweather";
+  font-size: 1.5rem;
+  margin: 1rem 1rem 2rem 1rem;
+  font-weight: 700;
+  align-self: center;
+}
+
+#modal-desc-label {
+  font-family: "Merriweather";
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+#modal-desc-content {
+  font-family: "Karla";
+  padding: 1rem;
+  border: 1px solid var(--secondary);
+}

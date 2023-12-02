@@ -2,6 +2,7 @@ import * as dateFns from "date-fns";
 import "./style.css";
 import create_task from "./tasks";
 import { handleNewList, generateMainContentList } from "./tasks";
+import { setupModalListeners } from "./listeners";
 
 //  creating new task
 export default function handleNewTask() {
@@ -20,10 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (newTaskList) {
     newTaskList.addEventListener("change", () => {
-      console.log("running func");
       handleNewList();
     });
   }
   generateMainContentList();
   handleNewList();
+  setupModalListeners();
 });
