@@ -233,7 +233,7 @@ body {
   background: rgba(0, 0, 0, 0.6);
 }
 #modal-content {
-  height: 60%;
+  max-height: 60%;
   width: auto;
   background-color: var(--background);
   position: fixed;
@@ -246,6 +246,12 @@ body {
   display: flex;
   flex-direction: column;
 }
+#modal-close {
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.5rem;
+}
 
 #modal-task-title {
   font-family: "Merriweather";
@@ -253,6 +259,19 @@ body {
   margin: 1rem 1rem 2rem 1rem;
   font-weight: 700;
   align-self: center;
+}
+
+#modal-bottom-section-wrapper {
+  /* margin-top: 3rem; */
+}
+
+#modal-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  overflow: hidden;
+  margin-bottom: 0.25rem;
 }
 
 #modal-desc-label {
@@ -265,4 +284,50 @@ body {
   font-family: "Karla";
   padding: 1rem;
   border: 1px solid var(--secondary);
+  text-wrap: wrap;
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+#modal-modifiers-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 5rem;
+}
+
+.modal-label {
+  padding-left: 2px;
+  font-family: "Merriweather";
+}
+
+.modal-modifier-info-wrapper {
+  display: flex;
+  align-items: center;
+  font-family: "Karla";
+}
+
+.modal-modifier-text {
+  margin-left: 0.5rem;
+}
+
+/* modal btns */
+
+#modal-btns {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+}
+
+#modal-bottom-btn {
+  padding: 0.5rem 1rem;
+  border: 0.1rem solid var(--secondary);
+}
+
+#modal-bottom-btn:hover {
+  border: 0.1rem solid var(--accent);
+}
+
+#modal-desc-container {
+  margin-bottom: 2rem;
 }
