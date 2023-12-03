@@ -71,32 +71,34 @@ export function updateNavList() {
   let listContainer = document.getElementById("menu-lists-list");
   let listOptionsContainer = document.getElementById("new-task-list");
   const storedList = JSON.parse(localStorage.getItem("tasklist"));
-  let listTitles = Object.keys(storedList);
 
-  listTitles.forEach((listTitle) => {
-    let existingListItems = listContainer.querySelectorAll("li");
-    let itemExists = false;
+  if (storedList !== null && storedList !== undefined) {
+    let listTitles = Object.keys(storedList);
+    listTitles.forEach((listTitle) => {
+      let existingListItems = listContainer.querySelectorAll("li");
+      let itemExists = false;
 
-    existingListItems.forEach((element) => {
-      if (element.textContent === listTitle) {
-        itemExists = true;
+      existingListItems.forEach((element) => {
+        if (element.textContent === listTitle) {
+          itemExists = true;
+        }
+      });
+
+      if (!itemExists) {
+        // add it to nav list
+        let newNavItem = document.createElement("li");
+        newNavItem.innerText = listTitle;
+        newNavItem.value = listTitle;
+        listContainer.appendChild(newNavItem);
+
+        // add it to option list
+        let newOptionItem = document.createElement("option");
+        newOptionItem.value = listTitle;
+        newOptionItem.innerText = listTitle;
+        listOptionsContainer.appendChild(newOptionItem);
       }
     });
-
-    if (!itemExists) {
-      // add it to nav list
-      let newNavItem = document.createElement("li");
-      newNavItem.innerText = listTitle;
-      newNavItem.value = listTitle;
-      listContainer.appendChild(newNavItem);
-
-      // add it to option list
-      let newOptionItem = document.createElement("option");
-      newOptionItem.value = listTitle;
-      newOptionItem.innerText = listTitle;
-      listOptionsContainer.appendChild(newOptionItem);
-    }
-  });
+  }
   generateMainContentList();
 }
 
@@ -117,10 +119,11 @@ export function generateMainContentList() {
 
   // generate list html
   let htmlContent = "";
-
-  for (const tasksInList of Object.values(taskList)) {
-    for (const task of tasksInList) {
-      htmlContent += `
+  if (taskList !== null && taskList !== undefined) {
+    for (const tasksInList of Object.values(taskList)) {
+      for (const task of tasksInList) {
+        if (task !== null && task !== undefined) {
+          htmlContent += `
       <li class="main-content-list-item">
       <div class="main-list-left-container">
         <p class="main-list-item-title">${task.name}</p>
@@ -147,6 +150,8 @@ export function generateMainContentList() {
         </span>
       </div>
     </li>`;
+        }
+      }
     }
   }
   listContainer.innerHTML = htmlContent;

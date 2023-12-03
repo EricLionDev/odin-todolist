@@ -84,8 +84,8 @@ function handleTaskModal(info) {
     const matchingArray = taskList[clickedTask.list];
     let index = matchingArray.findIndex((task) => task.id == clickedTask.id);
     matchingArray.splice(index, 1);
-    localStorage.setItem("tasklist", JSON.stringify(taskList));
 
+    localStorage.setItem("tasklist", JSON.stringify(taskList));
     updateNavList();
     generateMainContentList();
     modalContainer.close();
