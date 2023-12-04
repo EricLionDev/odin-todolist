@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
       handleNewList();
     });
   }
-  generateMainContentList();
   handleNewList();
   setupModalListeners();
 });

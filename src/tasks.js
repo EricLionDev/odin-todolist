@@ -13,6 +13,7 @@ export default class create_task {
     this.name = newTaskTitle.value;
     this.description = newTaskDescription.value;
     this.due_date = dateFns.parseISO(newTaskDate.value);
+    this.marked_completed = false;
     tasknums++;
 
     // choosing new list name or existing list name
@@ -29,6 +30,9 @@ export default class create_task {
     } else {
       task_list[this.list] = [];
       task_list[this.list].push(this);
+    }
+    if (!task_list["marked_completed"]) {
+      task_list["marked_completed"] = [];
     }
 
     // adding to localstorage
@@ -83,19 +87,20 @@ export function updateNavList() {
           itemExists = true;
         }
       });
+      if (listTitle != "marked_completed") {
+        if (!itemExists) {
+          // add it to nav list
+          let newNavItem = document.createElement("li");
+          newNavItem.innerText = listTitle;
+          newNavItem.value = listTitle;
+          listContainer.appendChild(newNavItem);
 
-      if (!itemExists) {
-        // add it to nav list
-        let newNavItem = document.createElement("li");
-        newNavItem.innerText = listTitle;
-        newNavItem.value = listTitle;
-        listContainer.appendChild(newNavItem);
-
-        // add it to option list
-        let newOptionItem = document.createElement("option");
-        newOptionItem.value = listTitle;
-        newOptionItem.innerText = listTitle;
-        listOptionsContainer.appendChild(newOptionItem);
+          // add it to option list
+          let newOptionItem = document.createElement("option");
+          newOptionItem.value = listTitle;
+          newOptionItem.innerText = listTitle;
+          listOptionsContainer.appendChild(newOptionItem);
+        }
       }
     });
   }
@@ -123,8 +128,11 @@ export function generateMainContentList() {
     for (const tasksInList of Object.values(taskList)) {
       for (const task of tasksInList) {
         if (task !== null && task !== undefined) {
+          let itemClass = task.marked_completed
+            ? "main-content-list-item completed"
+            : "main-content-list-item";
           htmlContent += `
-      <li class="main-content-list-item">
+      <li class="${itemClass}" data-item-container="${task.id}">
       <div class="main-list-left-container">
         <p class="main-list-item-title">${task.name}</p>
         <div class="main-list-modifiers-container">
@@ -134,7 +142,7 @@ export function generateMainContentList() {
             </span>
             <p id="modifier-list-date">${dateFns.format(
               new Date(task.due_date),
-              "MMM do, yyyy 'at' hh:mm 	b"
+              "MMM do, yyyy"
             )}</p>
           </div>
           <div class="modifier-list-list-container">
@@ -155,4 +163,10 @@ export function generateMainContentList() {
     }
   }
   listContainer.innerHTML = htmlContent;
+  // if (task.marked_completed === true) {
+  //   const completedItemContainer = document.querySelector(
+  //     `[data-item-container="${task.id}"]`
+  //   );
+  //   completedItemContainer.style.borderColor = "#7CFC00";
+  // }
 }

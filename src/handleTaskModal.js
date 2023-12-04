@@ -1,32 +1,15 @@
 import * as dateFns from "date-fns";
-import { task_list } from "./tasklist";
 import { updateNavList, generateMainContentList } from "./tasks";
-export function setupModalListeners() {
-  const parentElement = document.getElementById("main-content-list");
-  parentElement.addEventListener("click", (event) => {
-    let clickTarget = event.target;
+import { searchForTaskId } from "./listeners";
 
-    while (
-      clickTarget != null &&
-      !clickTarget.classList.contains("list-arrow-container")
-    ) {
-      clickTarget = clickTarget.parentElement;
-    }
-    if (clickTarget != null) {
-      const info = clickTarget.getAttribute("data-info");
-      console.log("data info: " + info);
-      handleTaskModal(info);
-    }
-  });
-}
-
-function handleTaskModal(info) {
+export function handleTaskModal(info) {
   const modalContainer = document.getElementById("task-modal-container");
   const clickedTask = searchForTaskId(info);
   const taskList = JSON.parse(localStorage.getItem("tasklist"));
   const matchingArray = taskList[clickedTask.list];
   let index = matchingArray.findIndex((task) => task.id == clickedTask.id);
 
+  console.log("clicked task: " + clickedTask);
   modalContainer.innerHTML = ` 
   <div id="modal-content">
   <!-- task title -->
@@ -55,7 +38,7 @@ function handleTaskModal(info) {
         </span>
         <div class="modal-modifier-text">${dateFns.format(
           new Date(clickedTask.due_date),
-          "MMM do, yyyy"
+          "MMM do, yyyy 'at' hh:mm 	b"
         )}</div>
       </div>
       </div>
@@ -82,50 +65,14 @@ function handleTaskModal(info) {
   // delete btn functionality
   const modalDeleteBtn = document.querySelector('[data-id="delete"]');
   modalDeleteBtn.addEventListener("click", () => {
-    // delete item
     matchingArray.splice(index, 1);
-    // update list
+
     localStorage.setItem("tasklist", JSON.stringify(taskList));
-    // rerender page items
     updateNavList();
     generateMainContentList();
-
     modalContainer.close();
-  });
-
-  // complete btn functionality
-  const modalCompleteBtn = document.querySelector('[data-id="complete"]');
-  modalCompleteBtn.addEventListener("click", () => {
-    let completedItem = matchingArray.splice(index, 1)[0];
-    if (clickedTask !== null && clickedTask !== undefined) {
-      if (clickedTask.marked_completed !== true) {
-        completedItem.marked_completed = true;
-        taskList["marked_completed"].push(completedItem);
-        // update list
-        localStorage.setItem("tasklist", JSON.stringify(taskList));
-        // rerender page items
-
-        updateNavList();
-        generateMainContentList();
-
-        modalContainer.close();
-      }
-    }
   });
 
   //   show modal
   modalContainer.showModal();
-}
-
-function searchForTaskId(id) {
-  const taskList = JSON.parse(localStorage.getItem("tasklist"));
-  console.log("searchforTaskId task list: " + taskList);
-  let foundItem = null;
-
-  Object.values(taskList).some((array) => {
-    foundItem = array.find((item) => item.id == id);
-    return foundItem !== undefined;
-  });
-  console.log("searchfortaskid found item: " + foundItem);
-  return foundItem;
 }
