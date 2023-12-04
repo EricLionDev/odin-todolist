@@ -25,7 +25,11 @@ function handleTaskModal(info) {
   const clickedTask = searchForTaskId(info);
   const taskList = JSON.parse(localStorage.getItem("tasklist"));
   const matchingArray = taskList[clickedTask.list];
+  console.log("matching array: " + matchingArray);
   let index = matchingArray.findIndex((task) => task.id == clickedTask.id);
+  let itemCompleteBtnText = clickedTask.marked_completed
+    ? "Mark Incomplete"
+    : "Complete";
 
   modalContainer.innerHTML = ` 
   <div id="modal-content">
@@ -69,7 +73,7 @@ function handleTaskModal(info) {
       </div>
     </div>
     <div id="modal-btns">
-      <div id="modal-bottom-btn" data-id="complete">Complete</div>
+      <div id="modal-bottom-btn" data-id="complete">${itemCompleteBtnText}</div>
       <div id="modal-bottom-btn" data-id="delete">Delete</div>
     </div></div>
   </div>`;
@@ -104,12 +108,30 @@ function handleTaskModal(info) {
         // update list
         localStorage.setItem("tasklist", JSON.stringify(taskList));
         // rerender page items
-
         updateNavList();
         generateMainContentList();
-
-        modalContainer.close();
+      } else {
+        // UN MARK AS COMPLETE
+        const markIncompleteArray = taskList["marked_completed"];
+        const incompleteIndex = markIncompleteArray.findIndex(
+          (task) => task.id == clickedTask.id
+        );
+        const incompleteItem = markIncompleteArray.splice(
+          incompleteIndex,
+          1
+        )[0];
+        const prevItemArray = taskList[`${incompleteItem.list}`];
+        incompleteItem.marked_completed = false;
+        console.log("incomplete item: " + incompleteItem);
+        console.log("prev array: " + prevItemArray);
+        prevItemArray.push(incompleteItem);
+        // update list
+        localStorage.setItem("tasklist", JSON.stringify(taskList));
+        updateNavList();
+        generateMainContentList();
       }
+
+      modalContainer.close();
     }
   });
 
