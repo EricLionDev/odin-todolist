@@ -19,17 +19,19 @@
         <div class="menu-section">
           <h3 class="menu-section-title">Tasks</h3>
           <ul class="tasks-list menu-list">
-            <li>All</li>
-            <li>Today</li>
-            <li>This Week</li>
-            <li>Completed</li>
+            <li class="nav-filter-selector" data-filter-name="All">All</li>
+            <li class="nav-filter-selector" data-filter-name="Today">Today</li>
+            <li class="nav-filter-selector" data-filter-name="This Week">
+              This Week
+            </li>
+            <li class="nav-filter-selector" data-filter-name="Completed">
+              Completed
+            </li>
           </ul>
         </div>
         <div class="menu-section">
           <h3 class="menu-section-title">Lists</h3>
-          <ul class="lists-list menu-list" id="menu-lists-list">
-            <li>Important</li>
-          </ul>
+          <ul class="lists-list menu-list" id="menu-lists-list"></ul>
         </div>
       </nav>
 
@@ -91,7 +93,6 @@
             <label for="new-task-list" class="new-task-label">List:</label>
             <select class="task-input" name="" id="new-task-list">
               <option value="new-list">+ New List</option>
-              <option value="Important">Important</option>
             </select>
           </div>
 
