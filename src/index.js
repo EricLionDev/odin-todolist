@@ -1,8 +1,9 @@
 import * as dateFns from "date-fns";
 import "./style.css";
-import create_task from "./tasks";
-import { handleNewList, generateMainContentList } from "./tasks";
+import create_task, { renderTasks } from "./tasks";
+import { handleNewList, filterTasks } from "./tasks";
 import { setupModalListeners } from "./listeners";
+import { initializeTaskList } from "./tasklist";
 
 //  creating new task
 export default function handleNewTask() {
@@ -24,6 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
       handleNewList();
     });
   }
+  const initialLoadList = filterTasks("All");
+  renderTasks(initialLoadList);
   handleNewList();
   setupModalListeners();
 });

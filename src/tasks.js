@@ -1,7 +1,8 @@
 import * as dateFns from "date-fns";
-import { task_list } from "./tasklist";
-var newTaskList = document.getElementById("new-task-list");
-var tasknums = 0;
+import { initializeTaskList } from "./tasklist";
+const newTaskList = document.getElementById("new-task-list");
+
+let task_list = initializeTaskList();
 
 // class for handling tasks
 export default class create_task {
@@ -9,12 +10,11 @@ export default class create_task {
     var newTaskTitle = document.getElementById("new-task-title");
     var newTaskDescription = document.getElementById("new-task-description");
     var newTaskDate = document.getElementById("new-task-date");
-    this.id = tasknums;
+    this.id = generateTaskId();
     this.name = newTaskTitle.value;
     this.description = newTaskDescription.value;
     this.due_date = dateFns.parseISO(newTaskDate.value);
     this.marked_completed = false;
-    tasknums++;
 
     // choosing new list name or existing list name
     var newTaskListChoice = document.getElementById("new-task-list");
@@ -66,12 +66,12 @@ export function handleNewList() {
     newListWrapper.style.display = "none";
     document.getElementById("new-task-list-input").required = false;
   }
+
   updateNavList();
 }
 
 // ui to update nav side menu with new lists
 export function updateNavList() {
-  console.log("called updateNavList() ");
   let listContainer = document.getElementById("menu-lists-list");
   let listOptionsContainer = document.getElementById("new-task-list");
   const storedList = JSON.parse(localStorage.getItem("tasklist"));
@@ -92,7 +92,8 @@ export function updateNavList() {
           // add it to nav list
           let newNavItem = document.createElement("li");
           newNavItem.innerText = listTitle;
-          newNavItem.value = listTitle;
+          newNavItem.setAttribute("data-filter-name", listTitle);
+          newNavItem.classList.add("nav-filter-selector");
           listContainer.appendChild(newNavItem);
 
           // add it to option list
@@ -104,69 +105,133 @@ export function updateNavList() {
       }
     });
   }
-  generateMainContentList();
+  const filterOptions = document.querySelectorAll(".nav-filter-selector");
+  filterOptions.forEach((e) => {
+    e.addEventListener("click", (event) => {
+      const selectedFilter = event.target.getAttribute("data-filter-name");
+      console.log("clicked filter: " + selectedFilter);
+      const filteredTasks = filterTasks(selectedFilter);
+      console.log("current list " + selectedFilter);
+      localStorage.setItem("current_list", selectedFilter);
+      renderTasks(filteredTasks);
+    });
+  });
 }
 
-// GENERATE MAIN AREA LIST
+export function searchForTaskId(id) {
+  const taskList = JSON.parse(localStorage.getItem("tasklist"));
+  let foundItem = null;
 
-export function generateMainContentList() {
-  console.log("called generateMainContentList() ");
-  const storedList = localStorage.getItem("tasklist");
-  const listContainer = document.getElementById("main-content-list");
-  let taskList;
-  listContainer.innerHTML = "";
-  if (storedList) {
-    taskList = JSON.parse(storedList);
-  } else {
-    console.log("There are no list items.");
-    listContainer.innerHTML = "";
-  }
+  Object.values(taskList).some((array) => {
+    foundItem = array.find((item) => item.id == id);
+    return foundItem !== undefined;
+  });
+  console.log("searchfortaskid found item: " + JSON.stringify(foundItem));
+  return foundItem;
+}
 
-  // generate list html
-  let htmlContent = "";
+function generateTaskId() {
+  // Retrieve the last ID and parse it to an integer
+  let lastId = parseInt(localStorage.getItem("lastTaskId") || "0");
+
+  // Increment the ID
+  lastId++;
+
+  // Save the new last ID back to localStorage
+  localStorage.setItem("lastTaskId", lastId.toString());
+
+  return lastId;
+}
+
+export function filterTasks(filter) {
+  const taskList = JSON.parse(localStorage.getItem("tasklist"));
+  let filteredTasks = [];
   if (taskList !== null && taskList !== undefined) {
-    for (const tasksInList of Object.values(taskList)) {
-      for (const task of tasksInList) {
-        if (task !== null && task !== undefined) {
-          let itemClass = task.marked_completed
-            ? "main-content-list-item completed"
-            : "main-content-list-item";
-          htmlContent += `
-      <li class="${itemClass}" data-item-container="${task.id}">
-      <div class="main-list-left-container">
-        <p class="main-list-item-title">${task.name}</p>
-        <div class="main-list-modifiers-container">
-          <div class="modifier-list-date-container">
-            <span class="material-symbols-outlined">
-              calendar_today
-            </span>
-            <p id="modifier-list-date">${dateFns.format(
-              new Date(task.due_date),
-              "MMM do, yyyy"
-            )}</p>
-          </div>
-          <div class="modifier-list-list-container">
-            <span class="material-symbols-outlined"> list </span>
-            <p id="modifier-list-list">${task.list}</p>
-          </div>
+    if (filter === "Completed") {
+      filteredTasks = taskList["marked_completed"];
+    } else if (filter === "Today") {
+      Object.values(taskList).forEach((list) => {
+        list.forEach((task) => {
+          if (dateFns.isToday(dateFns.parseISO(task.due_date))) {
+            filteredTasks.push(task);
+            console.log("date based task list : " + filteredTasks);
+          }
+        });
+      });
+    } else if (filter === "All") {
+      Object.values(taskList).forEach((list) => {
+        list.forEach((task) => {
+          filteredTasks.push(task);
+        });
+      });
+    } else if (filter === "This Week") {
+      Object.values(taskList).forEach((list) => {
+        list.forEach((task) => {
+          if (dateFns.isThisWeek(dateFns.parseISO(task.due_date))) {
+            filteredTasks.push(task);
+            console.log("week based task list : " + filteredTasks);
+          }
+        });
+      });
+    } else {
+      Object.values(taskList).forEach((list) => {
+        list.forEach((task) => {
+          console.log("list is :" + JSON.stringify(list));
+          console.log("task is :" + task);
+          if (filter === task.list) {
+            filteredTasks.push(task);
+          }
+        });
+      });
+    }
+
+    return filteredTasks;
+  }
+}
+
+export function renderTasks(tasks) {
+  const listContainer = document.getElementById("main-content-list");
+  listContainer.innerHTML = ""; // Clear existing tasks
+  let htmlContent = "";
+  if (!tasks) {
+    console.log("!!! There are no list items.");
+    listContainer.innerHTML = "";
+    // add a empty display thing here eventually ^^^^
+  } else {
+    tasks.forEach((task) => {
+      if (task !== null && task !== undefined) {
+        let itemClass = task.marked_completed
+          ? "main-content-list-item completed"
+          : "main-content-list-item";
+        htmlContent += `
+    <li class="${itemClass}" data-item-container="${task.id}">
+    <div class="main-list-left-container">
+      <p class="main-list-item-title">${task.name}</p>
+      <div class="main-list-modifiers-container">
+        <div class="modifier-list-date-container">
+          <span class="material-symbols-outlined">
+            calendar_today
+          </span>
+          <p id="modifier-list-date">${dateFns.format(
+            new Date(task.due_date),
+            "MMM do, yyyy"
+          )}</p>
+        </div>
+        <div class="modifier-list-list-container">
+          <span class="material-symbols-outlined"> list </span>
+          <p id="modifier-list-list">${task.list}</p>
         </div>
       </div>
-      <!-- arrow container -->
-      <div class="list-arrow-container" data-info="${task.id}">
-        <span class="material-symbols-outlined">
-          arrow_forward_ios
-        </span>
-      </div>
-    </li>`;
-        }
+    </div>
+    <!-- arrow container -->
+    <div class="list-arrow-container" data-info="${task.id}">
+      <span class="material-symbols-outlined">
+        arrow_forward_ios
+      </span>
+    </div>
+  </li>`;
       }
-    }
+    });
+    listContainer.innerHTML = htmlContent ? htmlContent : "";
   }
-  listContainer.innerHTML = htmlContent;
-  // if (task.marked_completed === true) {
-  //   const completedItemContainer = document.querySelector(
-  //     `[data-item-container="${task.id}"]`
-  //   );
-  //   completedItemContainer.style.borderColor = "#7CFC00";
-  // }
 }

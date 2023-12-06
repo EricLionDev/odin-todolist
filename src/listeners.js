@@ -1,6 +1,12 @@
 import * as dateFns from "date-fns";
-import { task_list } from "./tasklist";
-import { updateNavList, generateMainContentList } from "./tasks";
+import {
+  updateNavList,
+  generateMainContentList,
+  searchForTaskId,
+  filterTasks,
+  renderTasks,
+} from "./tasks";
+
 export function setupModalListeners() {
   const parentElement = document.getElementById("main-content-list");
   parentElement.addEventListener("click", (event) => {
@@ -14,7 +20,6 @@ export function setupModalListeners() {
     }
     if (clickTarget != null) {
       const info = clickTarget.getAttribute("data-info");
-      console.log("data info: " + info);
       handleTaskModal(info);
     }
   });
@@ -24,8 +29,10 @@ function handleTaskModal(info) {
   const modalContainer = document.getElementById("task-modal-container");
   const clickedTask = searchForTaskId(info);
   const taskList = JSON.parse(localStorage.getItem("tasklist"));
-  const matchingArray = taskList[clickedTask.list];
-  console.log("matching array: " + matchingArray);
+  const matchingArray =
+    clickedTask.marked_completed === false
+      ? taskList[clickedTask.list]
+      : taskList["marked_completed"];
   let index = matchingArray.findIndex((task) => task.id == clickedTask.id);
   let itemCompleteBtnText = clickedTask.marked_completed
     ? "Mark Incomplete"
@@ -87,20 +94,25 @@ function handleTaskModal(info) {
   const modalDeleteBtn = document.querySelector('[data-id="delete"]');
   modalDeleteBtn.addEventListener("click", () => {
     // delete item
-    matchingArray.splice(index, 1);
+    let deletedItem = matchingArray.splice(index, 1);
     // update list
     localStorage.setItem("tasklist", JSON.stringify(taskList));
     // rerender page items
-    updateNavList();
-    generateMainContentList();
 
+    let currentLoadedList = filterTasks(localStorage.getItem("current_list"));
+    renderTasks(currentLoadedList);
+    updateNavList();
     modalContainer.close();
   });
 
   // complete btn functionality
   const modalCompleteBtn = document.querySelector('[data-id="complete"]');
   modalCompleteBtn.addEventListener("click", () => {
-    let completedItem = matchingArray.splice(index, 1)[0];
+    let currentIndex = matchingArray.findIndex(
+      (task) => task.id == clickedTask.id
+    );
+
+    let completedItem = matchingArray.splice(currentIndex, 1)[0];
     if (clickedTask !== null && clickedTask !== undefined) {
       if (clickedTask.marked_completed !== true) {
         completedItem.marked_completed = true;
@@ -108,46 +120,23 @@ function handleTaskModal(info) {
         // update list
         localStorage.setItem("tasklist", JSON.stringify(taskList));
         // rerender page items
-        updateNavList();
-        generateMainContentList();
       } else {
         // UN MARK AS COMPLETE
-        const markIncompleteArray = taskList["marked_completed"];
-        const incompleteIndex = markIncompleteArray.findIndex(
-          (task) => task.id == clickedTask.id
-        );
-        const incompleteItem = markIncompleteArray.splice(
-          incompleteIndex,
-          1
-        )[0];
-        const prevItemArray = taskList[`${incompleteItem.list}`];
-        incompleteItem.marked_completed = false;
-        console.log("incomplete item: " + incompleteItem);
-        console.log("prev array: " + prevItemArray);
-        prevItemArray.push(incompleteItem);
+        matchingArray.splice(currentIndex, 1)[0];
+        const prevItemArray = taskList[clickedTask.list];
+        clickedTask.marked_completed = false;
+        prevItemArray.push(clickedTask);
         // update list
         localStorage.setItem("tasklist", JSON.stringify(taskList));
-        updateNavList();
-        generateMainContentList();
       }
-
+      let currentLoadedList = filterTasks(localStorage.getItem("current_list"));
+      console.log("current loaded list on mark :" + currentLoadedList);
+      renderTasks(currentLoadedList);
+      updateNavList();
       modalContainer.close();
     }
   });
 
   //   show modal
   modalContainer.showModal();
-}
-
-function searchForTaskId(id) {
-  const taskList = JSON.parse(localStorage.getItem("tasklist"));
-  console.log("searchforTaskId task list: " + taskList);
-  let foundItem = null;
-
-  Object.values(taskList).some((array) => {
-    foundItem = array.find((item) => item.id == id);
-    return foundItem !== undefined;
-  });
-  console.log("searchfortaskid found item: " + foundItem);
-  return foundItem;
 }
